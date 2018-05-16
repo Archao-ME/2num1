@@ -2,7 +2,7 @@
   <div class="trans-origin-wrapper">
     <div class="roll-btn pre" @click="rollPre()">pre</div>
     <div class="roll-btn next" @click="rollNext()">next</div>
-    <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+(index + currentIndex)" :attr-item="item"></div>
+    <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+(index + currentIndex)" :attr-item="index" v-if="index<19"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       currentIndex: 0,
-      itemList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+      itemList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
     }
   },
   methods: {
@@ -20,7 +20,7 @@ export default {
       this.currentIndex > 0 ? this.currentIndex = this.currentIndex - 1 : this.currentIndex = 0
     },
     rollNext () {
-      this.currentIndex < 19 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
+      this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
     }
   }
 }
