@@ -1,8 +1,12 @@
 <template>
-  <div class="trans-origin-wrapper">
+  <div class="t-switch-wrapper">
     <div class="roll-btn pre" @click="rollPre()">pre</div>
     <div class="roll-btn next" @click="rollNext()">next</div>
-    <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+(index + currentIndex)" :attr-item="index" v-if="index<19"></div>
+    <div class="origin-wrapper">
+      <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
+        <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+index" :attr-item="index" :attr-active="currentIndex === index" v-if="index<20"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,9 +21,11 @@ export default {
   },
   methods: {
     rollPre () {
+      console.log('pre')
       this.currentIndex > 0 ? this.currentIndex = this.currentIndex - 1 : this.currentIndex = 0
     },
     rollNext () {
+      console.log('pre')
       this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
     }
   }
@@ -28,12 +34,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  $wholeDeg: 18;
+  .origin-wrapper {
+    height: 300px;
+    /*overflow: hidden;*/
+  }
   .trans-origin-wrapper {
-    position: absolute;
-    bottom: 0;
-    height: 630px;
-    width : 1100px;
-    overflow: hidden;
+    position: relative;
+    width: 1104px;
+    height: 1104px;
+    transition: 1s ease;
   }
   .roll-btn {
     display: inline-block;
@@ -49,17 +59,25 @@ export default {
     background: #ccc;
     transform-origin: 50% 552px;
     opacity: 0.5;
+    transition: 1s ease;
   }
   @for $i from 0 through 30 {
-    .item.t-#{$i} {
+    $deg: $i*$wholeDeg + deg;
+    .active-#{$i} {
+      transform: rotate((-$i*$wholeDeg) + deg);
+    }
+    .t-#{$i} {
       $tNum: 1996 + $i;
-      $deg: $i*20 + deg;
-      @if $i < 19 {
+      @if $i < 20 {
         $tNumBg: "../assets/big/t-" + $tNum + '.png';
-        transform:rotate($deg) scale(0.8, 0.8);
+        transform:rotate($deg) translateX(-50%) scale(0.9, 0.9);
         background: url($tNumBg);
       }
       background-size: cover;
+    }
+    .t-#{$i}.item[attr-active=true] {
+      opacity: 1;
+      transform:rotate($deg) translateX(-50%) scale(1, 1);
     }
   }
 </style>
