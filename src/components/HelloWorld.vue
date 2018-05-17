@@ -70,14 +70,14 @@ export default {
       $tNum: 1996 + $i;
       @if $i < 20 {
         $tNumBg: "../assets/big/t-" + $tNum + '.png';
-        transform:rotate($deg) translateX(-50%) scale(0.9, 0.9);
+        transform:rotate($deg) scale(0.9, 0.9);
         background: url($tNumBg);
       }
       background-size: cover;
     }
     .t-#{$i}.item[attr-active=true] {
       opacity: 1;
-      transform:rotate($deg) translateX(-50%) scale(1, 1);
+      transform:rotate($deg) scale(1, 1);
     }
   }
 </style>
