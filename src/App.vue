@@ -20,7 +20,7 @@ export default {
     margin: 0 auto;
     width: 1440px;
     height: 100vh;
-    /*overflow: hidden;*/
+    overflow: hidden;
     /*height: 900px;*/
   }
 </style>

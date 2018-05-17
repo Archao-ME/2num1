@@ -115,7 +115,7 @@ export default {
     /*bottom: 0;*/
     width: 100%;
     height: 450px;
-    /*overflow: hidden;*/
+    overflow: hidden;
   }
   .trans-origin-wrapper {
     position: relative;
@@ -173,7 +173,7 @@ export default {
     left: 50%;
     height: 145px;
     width: 136px;
-    background: #ccc;
+    background: #F4F4F4;
     transform-origin: 50% 552px;
     transition: 1s ease;
     .item-img{
