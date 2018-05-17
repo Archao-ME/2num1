@@ -18,7 +18,7 @@ export default {
   }
   #app {
     margin: 0 auto;
-    width: 1440px;
+    /* width: 1440px; */
     height: 100vh;
     /*overflow: hidden;*/
     /*height: 900px;*/

@@ -66,6 +66,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   @import '../styles/layout.scss';
+  .t-switch-wrapper{
+    width: 1440px;
+  }
   .top {
     position: relative;
     width: 100%;
@@ -173,7 +176,7 @@ export default {
     left: 50%;
     height: 145px;
     width: 136px;
-    background: #ccc;
+    background: #F4F4F4;
     transform-origin: 50% 552px;
     transition: 1s ease;
     .item-img{
@@ -225,7 +228,9 @@ export default {
       background-size: cover;
     }
     .t-b-#{$i}.item[attr-active=true] {
-      opacity: 1;
+      .item-img{
+        opacity: 1;
+      }
       transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
     }
     .t-b-#{$i}.item[attr-active-mid=true] {
