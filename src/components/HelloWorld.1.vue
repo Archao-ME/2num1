@@ -24,7 +24,6 @@
       <div class="switch-btn-wrapper flex-box ai-c jc-ce">
         <div class="roll-btn pre" @click="rollPre()"></div>
         <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
-        <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
         <div class="roll-btn next" @click="rollNext()"></div>
       </div>
       <!--<div class="item-nav">-->
