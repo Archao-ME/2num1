@@ -26,6 +26,11 @@
         <div class="title">{{itemList[currentIndex].name}}</div>
         <div class="roll-btn next" @click="rollNext()"></div>
       </div>
+      <!--<div class="item-nav">-->
+        <!--<div class="item-wrapper" v-for="(item, index) in itemList" :key="index">-->
+          <!--<div class="point"></div>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
@@ -66,6 +71,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   @import '../styles/layout.scss';
+  .t-switch-wrapper {
+    position: relative;
+  }
   .top {
     position: relative;
     width: 100%;
@@ -94,6 +102,7 @@ export default {
   }
   .show-wrapper {
     position: relative;
+    height: 440px;
   }
  .t-switch-wrapper {
     width: 100%;
@@ -192,6 +201,12 @@ export default {
     max-width: 100%;
   }
 
+  .point {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #A389BE;
+  }
   $wholeDeg: 28;
   @for $i from 0 through 30 {
     $deg: $i*$wholeDeg + deg;
@@ -227,6 +242,9 @@ export default {
     .t-b-#{$i}.item[attr-active=true] {
       opacity: 1;
       transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
+      .item-img {
+        opacity: 1;
+      }
     }
     .t-b-#{$i}.item[attr-active-mid=true] {
       transform:rotate($deg) scale(1, 1) translateY(-60px);
