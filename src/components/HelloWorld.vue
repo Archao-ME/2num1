@@ -4,7 +4,9 @@
     <div class="roll-btn next" @click="rollNext()">next</div>
     <div class="origin-wrapper">
       <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
-        <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+index" :attr-item="index" :attr-active="currentIndex === index" v-if="index<20"></div>
+        <div class="roll-wrapper">
+          <div class="item" v-for="(item, index) in itemList" :key="index" :class="'t-'+index" :attr-item="index" :attr-active="currentIndex === index" v-if="index<20"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +47,9 @@ export default {
     height: 1104px;
     transition: 1s ease;
   }
+  .roll-wrapper {
+    transform: translateX(-70px);
+  }
   .roll-btn {
     display: inline-block;
     width: 100px;
@@ -70,7 +75,7 @@ export default {
       $tNum: 1996 + $i;
       @if $i < 20 {
         $tNumBg: "../assets/big/t-" + $tNum + '.png';
-        transform:rotate($deg) scale(0.9, 0.9);
+        transform:rotate($deg) scale(0.8, 0.8);
         background: url($tNumBg);
       }
       background-size: cover;
