@@ -1,13 +1,8 @@
 <template>
   <div class="t-switch-wrapper flex-box flex-direction-column jc-sb">
     <div class="top flex-box">
-      <div class="logo flex-box ai-c">
-        <div class="logo-left">
-          <img :src="'../static/logo/logo.png'" alt="">
-        </div>
-        <div class="logo-right">
-          <img :src="'../static/logo/2N1.png'" alt="">
-        </div>
+      <div class="logo flex-box">
+        <img :src="'../static/logo/logoWhole.png'" alt="">
       </div>
       <div class="season-awards">
         <img :src="'../static/logo/season-awards.png'" alt="">
@@ -34,7 +29,7 @@
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
-            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <10 && currentIndex - index < 10">
+            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
               <div class="item-img" :class="'t-'+index"></div>
             </div>
           </div>
@@ -89,20 +84,17 @@ export default {
     transform: translateX(-50%);
     width: 275px;
     height: 140px;
+    margin-top: 10px;
   }
   .top img {
     display: block;
     width: 100%;
     /*height: 100%;*/
   }
-  .logo .logo-left {
-    width: 58px;
-    height: 71px;
-  }
-  .logo .logo-right {
-    margin-left: 10px;
-    width: 120px;
-    /*height: 142px;*/
+  .logo {
+    margin-top: 10px;
+    width: 170px;
+    height: 70px;
   }
   .show-wrapper {
     position: relative;
@@ -157,16 +149,14 @@ export default {
     border-width: 10px 15px 10px 0;
     border-color: transparent #c6c6c6 transparent transparent;
   }
-  .roll-btn.pre:hover {
-    border-width: 10px 15px 10px 0;
-    border-color: transparent #563087 transparent transparent;
-  }
   .roll-btn.next {
     border-width: 10px 0 10px 15px;
     border-color: transparent transparent transparent #c6c6c6;
   }
+  .roll-btn.pre:hover {
+    border-color: transparent #563087 transparent transparent;
+  }
   .roll-btn.next:hover {
-    border-width: 10px 0 10px 15px;
     border-color: transparent transparent transparent #563087;
   }
   .roll-btn-bg-circel {
