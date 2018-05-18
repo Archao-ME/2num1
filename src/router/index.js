@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Index from '@/components/Index'
+import AwardsAndJersey from '@/components/AwardsAndJersey'
+import Home from '@/components/Home'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/AwardsAndJersey',
+      name: 'AwardsAndJersey',
+      component: AwardsAndJersey
     },
     {
-      path: '/index',
-      name: 'Index',
-      component: Index
+      path: '/Home',
+      name: 'Home',
+      component: Home
     }
   ]
 })

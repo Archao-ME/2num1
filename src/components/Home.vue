@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     goTo () {
-      this.$router.push({path: '/HelloWorld'})
+      this.$router.push({path: '/AwardsAndJersey'})
     }
   }
 }
