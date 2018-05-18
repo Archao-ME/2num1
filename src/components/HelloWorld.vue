@@ -28,13 +28,13 @@
       </div>
       <div class="point-nav flex-box">
         <div class="point-item-wrapper" v-for="(item, index) in itemList" :key="index">
-          <div class="point" :attr-active="currentIndex === index"></div>
+          <div class="point" :attr-active="currentIndex === index" @click="goToIndex(index)"></div>
         </div>
       </div>
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
-            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <5 && currentIndex - index < 5">
+            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <10 && currentIndex - index < 10">
               <div class="item-img" :class="'t-'+index"></div>
             </div>
           </div>
@@ -157,9 +157,17 @@ export default {
     border-width: 10px 15px 10px 0;
     border-color: transparent #c6c6c6 transparent transparent;
   }
+  .roll-btn.pre:hover {
+    border-width: 10px 15px 10px 0;
+    border-color: transparent #563087 transparent transparent;
+  }
   .roll-btn.next {
     border-width: 10px 0 10px 15px;
     border-color: transparent transparent transparent #c6c6c6;
+  }
+  .roll-btn.next:hover {
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #563087;
   }
   .roll-btn-bg-circel {
     position: absolute;
