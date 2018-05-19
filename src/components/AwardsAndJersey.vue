@@ -21,11 +21,14 @@
     <div class="show-wrapper">
       <div class="roll-btn-bg-circel"></div>
       <!--<div class="roll-origin-bg-circel"></div>-->
-      <div class="switch-btn-wrapper flex-box ai-c jc-ce">
-        <div class="roll-btn pre" @click="rollPre()"></div>
-        <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
-        <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
-        <div class="roll-btn next" @click="rollNext()"></div>
+      <div class="switch-btn-wrapper flex-box flex-direction-column jc-ce ai-c">
+        <div class="flex-box ai-c jc-ce">
+          <div class="roll-btn pre" @click="rollPre()"></div>
+          <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
+          <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
+          <div class="roll-btn next" @click="rollNext()"></div>
+        </div>
+        <img :src="'../static/season.png'" class="season">
       </div>
       <!--<div class="item-nav">-->
         <!--<div class="item-wrapper" v-for="(item, index) in itemList" :key="index">-->
@@ -36,7 +39,7 @@
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
             <div class="item" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <5 && currentIndex - index < 5">
-              <div class="item-img" :class="'t-'+index"></div>
+              <div class="item-img" :class="'t-'+index" @click="goToChart(index)"></div>
             </div>
           </div>
         </div>
@@ -64,6 +67,9 @@ export default {
     },
     rollNext () {
       this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
+    },
+    goToChart (index) {
+      this.$router.push({path: '/Chart/' + index})
     }
   }
 }
@@ -201,7 +207,11 @@ export default {
     max-height: 100%;
     max-width: 100%;
   }
-
+  .season{
+    width: 78px;
+    height: 23px;
+    display: block;
+  }
   .point {
     width: 12px;
     height: 12px;
