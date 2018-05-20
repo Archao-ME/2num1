@@ -9,17 +9,25 @@
       </div>
     </div>
     <div class="awards-show flex-box jc-ce">
-      <div class="award-item flex-box jc-ce" v-for="(item, index) in itemList[currentIndex].infoPic" :key="index">
+      <div class="award-item flex-box jc-ce" v-for="(item, index) in itemList[currentIndex].infoPic" :key="index" >
         <img :src="makePicUrl(item)" alt="">
       </div>
     </div>
     <div class="show-wrapper">
       <div class="roll-btn-bg-circel"></div>
       <!--<div class="roll-origin-bg-circel"></div>-->
-      <div class="switch-btn-wrapper flex-box ai-c jc-ce">
-        <div class="roll-btn pre" @click="rollPre()"></div>
-        <div class="title">{{itemList[currentIndex].name}}</div>
-        <div class="roll-btn next" @click="rollNext()"></div>
+      <div class="switch-btn-wrapper flex-box flex-direction-column jc-ce ai-c">
+        <div class="flex-box ai-c jc-ce">
+          <div class="roll-btn pre" @click="rollPre()"></div>
+          <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
+          <div class="title-pic-wrapper">
+            <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
+          </div>
+          <div class="roll-btn next" @click="rollNext()"></div>
+        </div>
+        <div class="season-title-wrapper">
+          <img :src="'../static/season.png'" class="season">
+        </div>
       </div>
       <div class="point-nav flex-box">
         <div class="point-item-wrapper" v-for="(item, index) in itemList" :key="index">
@@ -29,7 +37,7 @@
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
-            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
+            <div class="item" @click="goToChart(item)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
               <div class="item-img" :class="'t-'+index"></div>
             </div>
           </div>
@@ -50,6 +58,9 @@ export default {
     }
   },
   methods: {
+    clickAward (item) {
+      console.log('item')
+    },
     makePicUrl (name) {
       return '../static/awards/' + name + '.png'
     },
@@ -60,8 +71,10 @@ export default {
       this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
     },
     goToIndex (index) {
-      console.log('...')
       this.currentIndex = index
+    },
+    goToChart (item) {
+      this.$router.push({path: `/Chart/${item.name.slice(0, 4)}`})
     }
   }
 }
@@ -107,13 +120,27 @@ export default {
   .switch-btn-wrapper {
     position: relative;
     z-index:10;
-    width: 460px;
+    width: 420px;
+    padding-top: 20px;
     margin: 0 auto;
     background: #F4F4F4;
   }
   .switch-btn-wrapper .title {
     color: #563087;
     font-size: 60px;
+  }
+  .title-pic-wrapper {
+    width: 225px;
+    /*height: 100px;*/
+    img {
+      width: 100%;
+    }
+  }
+  .season-title-wrapper {
+    width: 78px;
+    img {
+      width: 100%;
+    }
   }
   .origin-wrapper {
     /*position: absolute;*/
@@ -124,7 +151,6 @@ export default {
   }
   .trans-origin-wrapper {
     position: relative;
-    z-index: -1;
     top: 100px;
     width: 1104px;
     height: 1104px;
@@ -168,6 +194,8 @@ export default {
     height: 1200px;
     border: 4px solid #533188;
     border-radius: 50%;
+
+    pointer-events: none;
   }
   .roll-origin-bg-circel {
     position: absolute;
