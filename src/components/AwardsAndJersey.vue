@@ -37,7 +37,7 @@
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
-            <div class="item" @click="goToChart(item)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
+            <div class="item" @click="goToChart(item, index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
               <div class="item-img" :class="'t-'+index"></div>
             </div>
           </div>
@@ -57,6 +57,14 @@ export default {
       itemList
     }
   },
+  mounted () {
+    setInterval(() => {
+      if (this.currentIndex < 19) {
+        return  this.currentIndex ++
+      }
+      this.currentIndex = 0
+    }, 5000)
+  },
   methods: {
     clickAward (item) {
       console.log('item')
@@ -73,8 +81,11 @@ export default {
     goToIndex (index) {
       this.currentIndex = index
     },
-    goToChart (item) {
-      this.$router.push({path: `/Chart/${item.name.slice(0, 4)}`})
+    goToChart (item, index) {
+      if (this.currentIndex === index) {
+        return this.$router.push({path: `/Chart/${item.name.slice(0, 4)}`})
+      }
+      this.currentIndex = index
     }
   }
 }
@@ -232,6 +243,7 @@ export default {
   }
   .point-nav {
     position: absolute;
+    z-index: 10;
     left: 50%;
     bottom: 40px;
     transform: translateX(-90px);

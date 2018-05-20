@@ -14,7 +14,7 @@
     </div>
     <div class="center">
       <!-- <div ref="chartPie" class="chart-pie"></div> -->
-      <img class="chart-circle" :src="'../static/chart-circle/' + yearRange ">
+      <img class="chart-circle" :src="chartCircleImg">
       <img class="chart-legend" :src="'../static/chart-circle-legend.png'">
     </div>
     <div class="right">
@@ -39,6 +39,9 @@ export default {
     }
   },
   computed: {
+    chartCircleImg () {
+      return `../static/chart-circle/${this.yearStart}/chart-${this.yearStart}-${this.currentScore}.png`
+    },
     yearStart () {
       return parseInt(this.$route.params.yearId)
     },
