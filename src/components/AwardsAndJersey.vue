@@ -1,13 +1,8 @@
 <template>
   <div class="t-switch-wrapper flex-box flex-direction-column jc-sb">
     <div class="top flex-box">
-      <div class="logo flex-box ai-c">
-        <div class="logo-left">
-          <img :src="'../static/logo/logo.png'" alt="">
-        </div>
-        <div class="logo-right">
-          <img :src="'../static/logo/2N1.png'" alt="">
-        </div>
+      <div class="logo flex-box">
+        <img :src="'../static/logo/logoWhole.png'" alt="">
       </div>
       <div class="season-awards">
         <img :src="'../static/logo/season-awards.png'" alt="">
@@ -21,25 +16,21 @@
     <div class="show-wrapper">
       <div class="roll-btn-bg-circel"></div>
       <!--<div class="roll-origin-bg-circel"></div>-->
-      <div class="switch-btn-wrapper flex-box flex-direction-column jc-ce ai-c">
-        <div class="flex-box ai-c jc-ce">
-          <div class="roll-btn pre" @click="rollPre()"></div>
-          <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
-          <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
-          <div class="roll-btn next" @click="rollNext()"></div>
-        </div>
-        <img :src="'../static/season.png'" class="season">
+      <div class="switch-btn-wrapper flex-box ai-c jc-ce">
+        <div class="roll-btn pre" @click="rollPre()"></div>
+        <div class="title">{{itemList[currentIndex].name}}</div>
+        <div class="roll-btn next" @click="rollNext()"></div>
       </div>
-      <!--<div class="item-nav">-->
-        <!--<div class="item-wrapper" v-for="(item, index) in itemList" :key="index">-->
-          <!--<div class="point"></div>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div class="point-nav flex-box">
+        <div class="point-item-wrapper" v-for="(item, index) in itemList" :key="index">
+          <div class="point" :attr-active="currentIndex === index" @click="goToIndex(index)"></div>
+        </div>
+      </div>
       <div class="origin-wrapper">
         <div class="trans-origin-wrapper" :class="'active-' + currentIndex">
           <div class="roll-wrapper">
-            <div class="item" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <5 && currentIndex - index < 5">
-              <div class="item-img" :class="'t-'+index" @click="goToChart(index)"></div>
+            <div class="item" @click="goToIndex(index)" :class="'t-b-'+index" v-for="(item, index) in itemList" :key="index" :attr-item="index" :attr-active="currentIndex === index" :attr-active-mid="currentIndex === index + 1 || currentIndex === index - 1" v-if="index - currentIndex <8 && currentIndex - index < 8">
+              <div class="item-img" :class="'t-'+index"></div>
             </div>
           </div>
         </div>
@@ -68,8 +59,9 @@ export default {
     rollNext () {
       this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
     },
-    goToChart (index) {
-      this.$router.push({path: '/Chart/' + index})
+    goToIndex (index) {
+      console.log('...')
+      this.currentIndex = index
     }
   }
 }
@@ -92,26 +84,23 @@ export default {
     transform: translateX(-50%);
     width: 275px;
     height: 140px;
+    margin-top: 10px;
   }
   .top img {
     display: block;
     width: 100%;
     /*height: 100%;*/
   }
-  .logo .logo-left {
-    width: 58px;
-    height: 71px;
-  }
-  .logo .logo-right {
-    margin-left: 10px;
-    width: 120px;
-    /*height: 142px;*/
+  .logo {
+    margin-top: 10px;
+    width: 170px;
+    height: 70px;
   }
   .show-wrapper {
     position: relative;
     height: 440px;
   }
- .t-switch-wrapper {
+  .t-switch-wrapper {
     width: 100%;
     height: 100%;
   }
@@ -123,8 +112,8 @@ export default {
     background: #F4F4F4;
   }
   .switch-btn-wrapper .title {
-    width: 225px;
-    height: 50px;
+    color: #563087;
+    font-size: 60px;
   }
   .origin-wrapper {
     /*position: absolute;*/
@@ -164,6 +153,12 @@ export default {
     border-width: 10px 0 10px 15px;
     border-color: transparent transparent transparent #c6c6c6;
   }
+  .roll-btn.pre:hover {
+    border-color: transparent #563087 transparent transparent;
+  }
+  .roll-btn.next:hover {
+    border-color: transparent transparent transparent #563087;
+  }
   .roll-btn-bg-circel {
     position: absolute;
     top: 10px;
@@ -192,11 +187,11 @@ export default {
     background: #F4F4F4;
     transform-origin: 50% 552px;
     transition: 1s ease;
-    .item-img{
-      width: 100%;
-      height: 100%;
-      opacity: 0.5;
-    }
+  .item-img{
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+  }
   }
   .award-item {
     height: 250px;
@@ -207,60 +202,71 @@ export default {
     max-height: 100%;
     max-width: 100%;
   }
-  .season{
-    width: 78px;
-    height: 23px;
-    display: block;
+  .point-nav {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-90px);
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 40px;
+  }
+  .point-item-wrapper {
+    margin-right: 8px;
   }
   .point {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background: #A389BE;
+    opacity: 0.2;
+    transition: 1s ease;
+  }
+  .point[attr-active=true] {
+    opacity: 1;
   }
   $wholeDeg: 28;
   @for $i from 0 through 30 {
-    $deg: $i*$wholeDeg + deg;
+  $deg: $i*$wholeDeg + deg;
     .active-#{$i} {
       transform: rotate((-$i*$wholeDeg) + deg);
     }
     .t-#{$i} {
       z-index: 10;
       $tNum: 1996 + $i;
-      @if $i < 20 {
-        $tNumBg: "../assets/big/t-" + $tNum + '.png';
-        // transform:rotate($deg) scale(0.8, 0.8) translateY(-200px);
-        background: url($tNumBg);
-      }
-      background-size: cover;
+    @if $i < 20 {
+      $tNumBg: "../assets/big/t-" + $tNum + '.png';
+    // transform:rotate($deg) scale(0.8, 0.8) translateY(-200px);
+      background: url($tNumBg);
     }
-    .t-#{$i}.item[attr-active=true] {
-      opacity: 1;
-      // transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
-    }
-    .t-#{$i}.item[attr-active-mid=true] {
-      // transform:rotate($deg) scale(1, 1) translateY(-60px);
-    }
+    background-size: cover;
+  }
+  .t-#{$i}.item[attr-active=true] {
+    opacity: 1;
+  // transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
+  }
+  .t-#{$i}.item[attr-active-mid=true] {
+  // transform:rotate($deg) scale(1, 1) translateY(-60px);
+  }
 
-    .t-b-#{$i} {
-      z-index: 10;
-      $tNum: 1996 + $i;
-      @if $i < 20 {
-        transform:rotate($deg) scale(0.8, 0.8) translateY(-200px);
-      }
-      background-size: cover;
-    }
-    .t-b-#{$i}.item[attr-active=true] {
-      .item-img{
-        opacity: 1;
-      }
-      transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
-      .item-img {
-        opacity: 1;
-      }
-    }
-    .t-b-#{$i}.item[attr-active-mid=true] {
-      transform:rotate($deg) scale(1, 1) translateY(-60px);
-    }
+  .t-b-#{$i} {
+    z-index: 10;
+    $tNum: 1996 + $i;
+  @if $i < 20 {
+    transform:rotate($deg) scale(0.8, 0.8) translateY(-200px);
+  }
+  background-size: cover;
+  }
+  .t-b-#{$i}.item[attr-active=true] {
+    opacity: 1;
+    transform:rotate($deg) scale(1.4, 1.4) translateY(100px);
+  .item-img {
+    opacity: 1;
+  }
+  }
+  .t-b-#{$i}.item[attr-active-mid=true] {
+    transform:rotate($deg) scale(1, 1) translateY(-60px);
+  }
   }
 </style>

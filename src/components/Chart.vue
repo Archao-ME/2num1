@@ -21,7 +21,6 @@
       <img :src="'../static/show-time.png'" class="show-time">
       <div class="gap-line"></div>
       <div class="chart-bar">
-        
       </div>
       <img :src="'../static/show-time-legend.png'" class="show-time-legend">
     </div>
