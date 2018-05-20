@@ -6,17 +6,19 @@
       <img :src="'../static/chart-line/chart-line-' + yearStart + '.png'" class="line-chart">
       <div class="score-wrapper">
         <img :src="'../static/score/score-range.png'" class="score-range">
-        <div v-for="(item, index) in scoreList" :key="index" class="score-item">
-          <div :class="[currentScore === index ? 'icon-square-purple' : 'icon-square-grey']" @click="chooseScore(index)"></div>
-          <div :class="[currentScore === index ? 'score-'+ index + '-purple' : 'score-' + index + '-grey']" @click="chooseScore(index)"></div>
+        <div v-for="(item, index) in scoreList" :key="index" class="score-item" :class="{'opacity-50': isExclude(index)}" @click="chooseScore(index)">
+          <div :class="[currentScore === index ? 'icon-square-purple' : 'icon-square-grey']"></div>
+          <div :class="[currentScore === index ? 'score-'+ index + '-purple' : 'score-' + index + '-grey']"></div>
         </div>
       </div>
     </div>
-    <div class="center">
-      <!-- <div ref="chartPie" class="chart-pie"></div> -->
-      <img class="chart-circle" :src="chartCircleImg">
-      <img class="chart-legend" :src="'../static/chart-circle-legend.png'">
-    </div>
+      <div class="center" >
+        <!-- <div ref="chartPie" class="chart-pie"></div> -->
+        <transition name="fade" mode="out-in" appear>
+          <img class="chart-circle" :src="chartCircleImg" :key="chartCircleImg">
+        </transition>
+        <img class="chart-legend" :src="'../static/chart-circle-legend.png'">
+      </div>
     <div class="right">
       <img :src="'../static/show-time.png'" class="show-time">
       <div class="gap-line"></div>
@@ -35,7 +37,8 @@ export default {
     return {
       currentScore: 0,
       scoreList,
-      chart: null
+      chart: null,
+      excludeList: []
     }
   },
   computed: {
@@ -50,24 +53,17 @@ export default {
       return this.yearStart + '-' + yearEnd + '.png'
     }
   },
-  mounted () {
-    // console.log(this.echarts)
-    // this.chart = this.echarts.init(this.$refs.chartPie)
-    // this.chart.setOption({
-    //   series: {
-    //     type: 'pie',
-    //     data: [
-    //       { name: 'A', value: 1212 },
-    //       { name: 'B', value: 2323 },
-    //       { name: 'C', value: 1919 }
-    //     ]
-    //   }
-    // })
+  created () {
+    this.excludeList = require('../../static/chart-circle/' + this.yearStart)
   },
   methods: {
     chooseScore (index) {
-      console.log(index)
-      this.currentScore = index
+      if (!this.isExclude(index)) {
+        this.currentScore = index
+      }
+    },
+    isExclude (index) {
+      return this.excludeList.default.exclude.includes(index)
     }
   }
 }
@@ -76,6 +72,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   @import '../styles/layout.scss';
+  .opacity-50 {
+    opacity: 0.5;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: all .5s;
+    transform: scale(1) rotate(0deg);
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: scale(0.2) rotate(180deg);
+  }
   .chart-wrapper {
     width: 100%;
     height: 100%;

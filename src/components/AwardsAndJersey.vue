@@ -54,18 +54,23 @@ export default {
   data () {
     return {
       currentIndex: 0,
-      itemList
+      itemList,
+      delayChangeTime: 5000,
+      interval: null
     }
   },
   mounted () {
-    setInterval(() => {
-      if (this.currentIndex < 19) {
-        return  this.currentIndex ++
-      }
-      this.currentIndex = 0
-    }, 5000)
+    this.autoChange()
   },
   methods: {
+    autoChange () {
+      this.interval = setInterval(() => {
+        if (this.currentIndex < 19) {
+          return this.currentIndex++
+        }
+        this.currentIndex = 0
+      }, this.delayChangeTime)
+    },
     clickAward (item) {
       console.log('item')
     },
