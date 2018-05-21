@@ -23,6 +23,19 @@
       <img :src="'../static/show-time.png'" class="show-time">
       <div class="gap-line"></div>
       <div class="chart-bar">
+        <div class="chart-bar-content">
+          <div class="bar" v-for="(item, index) in barList" :key="index">
+            <div v-if="currentScore === 0">
+              <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
+              <span :class="['color-' + item.color]">{{item.score}}</span>
+            </div>
+            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'">
+              <!-- <div :class="['icon-month-' + item.month]"></div> -->
+              <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
+              <span :class="['bar-color-' + item.color]">{{item.score}}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <img :src="'../static/show-time-legend.png'" class="show-time-legend">
     </div>
@@ -38,7 +51,9 @@ export default {
       currentScore: 0,
       scoreList,
       chart: null,
-      excludeList: []
+      excludeList: [],
+      barList: [],
+      monthList: []
     }
   },
   computed: {
@@ -55,6 +70,14 @@ export default {
   },
   created () {
     this.excludeList = require('../../static/chart-circle/' + this.yearStart)
+    this.barList = require('../../static/chart-bar/bar-' + this.yearStart)
+    this.barList = this.barList.default
+    this.barList.forEach((item) => {
+      if (this.monthList.indexOf(item.month) < 0) {
+        this.monthList.push(item.month)
+      }
+    })
+    console.log(this.monthList)
   },
   methods: {
     chooseScore (index) {
@@ -207,7 +230,13 @@ export default {
       padding-left: 20px;
       width: 330px;
       height: 750px;
-      background-color: #FF3E3E;
+      .chart-bar-content{
+        width: 288px;
+        height: 750px;
+        border-left:1px dotted #e2e2e2;
+        border-right:1px dotted #e2e2e2;
+        // border-left-style:dashed;
+      }
     }
     .show-time-legend{
       width: 180px;
@@ -215,6 +244,38 @@ export default {
       display: block;
       margin-left: 50%;
       transform: translateX(-50%);
+    }
+  }
+  @for $i from 1 through 12 {
+    $month: "/static/month/" + $i + '.png';
+    .icon-month-#{$i} {
+      width: 20px;
+      height: 10px;
+      background: url($month);
+      background-size: cover;
+    }
+  }
+  .bar-color-0{
+    background-color: #FF3E3E;
+  }
+  .bar-color-1{
+    background-color: #FFC117;
+  }
+  .bar-color-2{
+    background-color: #533188;
+  }
+  .bar-color-3{
+    background-color: #808080;
+  }
+  .bar-color-4{
+    background-color: #e2e2e2;
+  }
+   @for $i from 0 through 48 {
+    .bar-time-#{$i} {
+      width: $i * 6 + px;
+      height: 6px;
+      border-radius: 3px;
+      margin-top: 3px;
     }
   }
 </style>

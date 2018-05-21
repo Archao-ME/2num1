@@ -1,3 +1,3 @@
 export default {
-  exclude: [1]
+  exclude: [1, 6]
 }

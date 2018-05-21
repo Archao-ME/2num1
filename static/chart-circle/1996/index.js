@@ -1,3 +1,3 @@
 export default {
-  exclude: []
+  exclude: [4, 5, 6]
 }
