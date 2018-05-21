@@ -25,14 +25,15 @@
       <div class="chart-bar">
         <div class="chart-bar-content">
           <div class="bar" v-for="(item, index) in barList" :key="index">
-            <div v-if="currentScore === 0">
+            <div v-if="currentScore === 0" class="flex-box ai-c">
+              <div :class="{['icon-month-' + item.month]: true,'icon-month-hide': barList[index-1] && barList[index-1].month === item.month}"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
               <span :class="['color-' + item.color]">{{item.score}}</span>
             </div>
-            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'">
-              <!-- <div :class="['icon-month-' + item.month]"></div> -->
+            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'" class="flex-box ai-c">
+               <div :class="['icon-month-' + item.month]"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
-              <span :class="['bar-color-' + item.color]">{{item.score}}</span>
+              <span :class="['color-' + item.color]">{{item.score}}</span>
             </div>
           </div>
         </div>
@@ -95,6 +96,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   @import '../styles/layout.scss';
+
   .opacity-50 {
     opacity: 0.5;
   }
@@ -231,7 +233,8 @@ export default {
       width: 330px;
       height: 750px;
       .chart-bar-content{
-        width: 288px;
+        font-size: 7px;
+        /*width: 288px;*/
         height: 750px;
         border-left:1px dotted #e2e2e2;
         border-right:1px dotted #e2e2e2;
@@ -245,6 +248,9 @@ export default {
       margin-left: 50%;
       transform: translateX(-50%);
     }
+  }
+  .icon-month-hide {
+    visibility: hidden;
   }
   @for $i from 1 through 12 {
     $month: "/static/month/" + $i + '.png';
@@ -270,12 +276,27 @@ export default {
   .bar-color-4{ 
     background-color: #e2e2e2;
   }
+
+  .color-0{
+    color: #FF3E3E;
+  }
+  .color-1{
+    color: #FFC117;
+  }
+  .color-2{
+    color: #533188;
+  }
+  .color-3{
+    color: #808080;
+  }
+  .color-4{
+    color: #e2e2e2;
+  }
    @for $i from 0 through 48 {
     .bar-time-#{$i} {
       width: $i * 6 + px;
-      height: 6px;
+      height: 5px;
       border-radius: 3px;
-      margin-top: 3px;
     }
   }
 </style>
