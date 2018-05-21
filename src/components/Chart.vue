@@ -267,7 +267,7 @@ export default {
   .bar-color-3{
     background-color: #808080;
   }
-  .bar-color-4{
+  .bar-color-4{ 
     background-color: #e2e2e2;
   }
    @for $i from 0 through 48 {
