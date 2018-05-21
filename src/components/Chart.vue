@@ -25,15 +25,15 @@
       <div class="chart-bar">
         <div class="chart-bar-content">
           <div class="bar" v-for="(item, index) in barList" :key="index">
-            <div v-if="currentScore === 0" class="flex-box ai-c">
+            <div v-if="currentScore === 0" class="flex-box ai-c bar-box">
               <div :class="{['icon-month-' + item.month]: true,'icon-month-hide': barList[index-1] && barList[index-1].month === item.month}"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
-              <span :class="['color-' + item.color]">{{item.score}}</span>
+              <div :class="['color-' + item.color, 'score-num']">{{item.score}}</div>
             </div>
-            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'" class="flex-box ai-c">
+            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'" class="flex-box ai-c bar-box">
                <div :class="['icon-month-' + item.month]"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
-              <span :class="['color-' + item.color]">{{item.score}}</span>
+              <div :class="['color-' + item.color, 'score-num']">{{item.score}}</div>
             </div>
           </div>
         </div>
@@ -239,6 +239,12 @@ export default {
         border-left:1px dotted #e2e2e2;
         border-right:1px dotted #e2e2e2;
         // border-left-style:dashed;
+        .bar-box{
+          margin-bottom: -8px;
+        }
+        .score-num {
+          right: 0;
+        }
       }
     }
     .show-time-legend{
