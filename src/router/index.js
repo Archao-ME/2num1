@@ -11,17 +11,20 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {path: 1}
     },
     {
       path: '/AwardsAndJersey',
       name: 'AwardsAndJersey',
-      component: AwardsAndJersey
+      component: AwardsAndJersey,
+      meta: {path: 2}
     },
     {
       path: '/Chart/:yearId',
       name: 'Chart',
-      component: Chart
+      component: Chart,
+      meta: {path: 3}
     }
   ]
 })

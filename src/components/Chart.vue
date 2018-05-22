@@ -84,11 +84,50 @@ export default {
       }
     })
   },
+  mounted () {
+    let changPage = (event) => {
+      if (event.keyCode === 37) {
+        let preIndex = this.getPrePic(this.currentScore)
+        if (preIndex > -1) {
+          this.chooseScore(preIndex)
+        }
+      }
+      if (event.keyCode === 39) {
+        let nextIndex = this.getNextPic(this.currentScore)
+        if (nextIndex) {
+          this.chooseScore(nextIndex)
+        }
+      }
+    }
+    document.addEventListener('keydown', changPage)
+  },
   methods: {
+    getPrePic (curIndex) {
+      if (curIndex < 0) {
+        return false
+      }
+      if (this.isExclude(curIndex - 1)) {
+        curIndex--
+        return this.getPrePic(curIndex)
+      }
+      return curIndex - 1
+    },
+    getNextPic (curIndex) {
+      if (curIndex > 5) {
+        return false
+      }
+      if (this.isExclude(curIndex + 1)) {
+        curIndex++
+        return this.getNextPic(curIndex)
+      }
+      return curIndex + 1
+    },
     chooseScore (index) {
       if (!this.isExclude(index)) {
         this.currentScore = index
+        return true
       }
+      return false
     },
     isExclude (index) {
       return this.excludeList.default.exclude.includes(index)
@@ -116,6 +155,7 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
+    top: -40px;
   }
   .left{
     width: 200px;

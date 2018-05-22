@@ -61,6 +61,15 @@ export default {
   },
   mounted () {
     this.autoChange()
+    let changPage = (event) => {
+      if (event.keyCode === 37) {
+        this.currentIndex > 0 ? this.currentIndex = this.currentIndex - 1 : this.currentIndex = 0
+      }
+      if (event.keyCode === 39) {
+        this.currentIndex < 20 ? this.currentIndex = this.currentIndex + 1 : this.currentIndex = 19
+      }
+    }
+    document.addEventListener('keydown', changPage)
   },
   methods: {
     autoChange () {
@@ -121,7 +130,8 @@ export default {
     /*height: 100%;*/
   }
   .logo {
-    margin-top: 10px;
+    margin-top: 30px;
+    margin-left: 30px;
     width: 170px;
     height: 70px;
   }
@@ -181,10 +191,12 @@ export default {
     transform: translateX(-70px);
   }
   .roll-btn {
+    position: relative;
+    top: -5px;
     display: inline-block;
     width: 0;
     height: 0;
-    margin:10px 20px 0 20px;
+    margin:0px 20px 0 20px;
     border-style: solid;
   }
   .roll-btn.pre {
