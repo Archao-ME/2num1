@@ -19,11 +19,6 @@ export default new Router({
       component: AwardsAndJersey
     },
     {
-      path: '/Home',
-      name: 'Home',
-      component: Home
-    },
-    {
       path: '/Chart/:yearId',
       name: 'Chart',
       component: Chart

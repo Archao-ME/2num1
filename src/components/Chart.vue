@@ -23,18 +23,23 @@
       <img :src="'../static/show-time.png'" class="show-time">
       <div class="gap-line"></div>
       <div class="chart-bar">
+        <div class="right-border"></div>
         <div class="chart-bar-content">
           <div class="bar" v-for="(item, index) in barList" :key="index">
-            <div v-if="currentScore === 0" class="flex-box ai-c">
-              <div :class="{['icon-month-' + item.month]: true,'icon-month-hide': barList[index-1] && barList[index-1].month === item.month}"></div>
+            <div v-if="currentScore === 0" class="bar-box flex-box ai-c">
+              <div :class="{['icon-month-' + item.month + ' month-item']: true,'icon-month-hide': barList[index-1] && barList[index-1].month === item.month}"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
-              <span :class="['color-' + item.color]">{{item.score}}</span>
+              <span :class="['color-' + item.color + ' color-item']" v-if="item.score !== '7'">{{item.time}}</span>
             </div>
-            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'" class="flex-box ai-c">
-               <div :class="['icon-month-' + item.month]"></div>
+            <div v-else-if="parseInt(item.score) === currentScore || item.score === '7'" class="bar-box flex-box ai-c">
+              <div :class="{['icon-month-' + item.month + ' month-item']: true,'icon-month-hide': barList[index-1] && barList[index-1].month === item.month}"></div>
               <div :class="['bar-color-' + item.color + ' bar-time-' + item.time]"></div>
-              <span :class="['color-' + item.color]">{{item.score}}</span>
+              <span :class="['color-' + item.color + ' color-item']" v-if="item.score !== '7'">{{item.time}}</span>
             </div>
+          </div>
+          <div class="last-bar">
+            <div class="bar-left bar-color-2 bar-time-48"></div>
+            <div class="bar-right bar-time-6"></div>
           </div>
         </div>
       </div>
@@ -78,7 +83,6 @@ export default {
         this.monthList.push(item.month)
       }
     })
-    console.log(this.monthList)
   },
   methods: {
     chooseScore (index) {
@@ -208,7 +212,7 @@ export default {
       object-fit: cover;
       margin-left: 50%;
       transform: translateX(-50%);
-      margin-top: 30px;
+      margin-top: 50px;
     }
   }
   .right{
@@ -229,16 +233,23 @@ export default {
       padding-left: 20px;
     }
     .chart-bar{
-      padding-left: 20px;
+      margin-left: 20px;
       width: 330px;
-      height: 750px;
+      position: relative;
+      margin-bottom: 10px;
+      // height: 750px;
       .chart-bar-content{
-        font-size: 7px;
-        /*width: 288px;*/
-        height: 750px;
+        margin-top: 20px;
+        // width: 288px;
+        // height: 750px;
         border-left:1px dotted #e2e2e2;
-        border-right:1px dotted #e2e2e2;
-        // border-left-style:dashed;
+      }
+      .right-border{
+        width: 1px;
+        height: 100%;
+        border-right: 1px dotted #e2e2e2;
+        position: absolute;
+        left: 288px;
       }
     }
     .show-time-legend{
@@ -247,10 +258,15 @@ export default {
       display: block;
       margin-left: 50%;
       transform: translateX(-50%);
+      padding-top: 10px;
     }
   }
   .icon-month-hide {
     visibility: hidden;
+  }
+  .month-item{
+    position: absolute;
+    left: -30px;
   }
   @for $i from 1 through 12 {
     $month: "/static/month/" + $i + '.png';
@@ -273,10 +289,18 @@ export default {
   .bar-color-3{
     background-color: #808080;
   }
-  .bar-color-4{ 
+  .bar-color-4{
     background-color: #e2e2e2;
   }
-
+  .color-item{
+    display: inline-block;
+    width: 20px;
+    height: 16px;
+    font-size: 14px;
+    transform: scale(0.5);
+    position: absolute;
+    left: 340px;
+  }
   .color-0{
     color: #FF3E3E;
   }
@@ -292,11 +316,32 @@ export default {
   .color-4{
     color: #e2e2e2;
   }
-   @for $i from 0 through 48 {
+   @for $i from 0 through 100 {
     .bar-time-#{$i} {
       width: $i * 6 + px;
       height: 5px;
       border-radius: 3px;
+    }
+  }
+  .bar-box{
+    width: 100%;
+    height: 8px;
+    position: relative;
+  }
+  .last-bar{
+    margin-top: 40px;
+    .bar-left, .bar-right{
+      float:left;
+    }
+    .bar-left{
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .bar-right{
+      height: 3px;
+      border: 1px solid #e2e2e2;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 </style>

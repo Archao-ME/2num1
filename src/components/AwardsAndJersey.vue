@@ -18,12 +18,12 @@
       <!--<div class="roll-origin-bg-circel"></div>-->
       <div class="switch-btn-wrapper flex-box flex-direction-column jc-ce ai-c">
         <div class="flex-box ai-c jc-ce">
-          <div class="roll-btn pre" @click="rollPre()"></div>
+          <div :class="['roll-btn pre', currentIndex === 0 ? 'pre-dis': '']" @click="rollPre()"></div>
           <!-- <div class="title">{{itemList[currentIndex].name}}</div> -->
           <div class="title-pic-wrapper">
             <img :src="'../static/year/' + itemList[currentIndex].name + '.png'" class="title">
           </div>
-          <div class="roll-btn next" @click="rollNext()"></div>
+          <div :class="['roll-btn next', currentIndex === 19 ? 'next-dis': '']" @click="rollNext()"></div>
         </div>
         <div class="season-title-wrapper">
           <img :src="'../static/season.png'" class="season">
@@ -55,7 +55,7 @@ export default {
     return {
       currentIndex: 0,
       itemList,
-      delayChangeTime: 5000,
+      delayChangeTime: 3000,
       interval: null
     }
   },
@@ -189,18 +189,21 @@ export default {
   }
   .roll-btn.pre {
     border-width: 10px 15px 10px 0;
+    border-color: transparent #563087 transparent transparent;
+  }
+  .roll-btn.pre-dis{
+    border-width: 10px 15px 10px 0;
     border-color: transparent #c6c6c6 transparent transparent;
   }
   .roll-btn.next {
     border-width: 10px 0 10px 15px;
-    border-color: transparent transparent transparent #c6c6c6;
-  }
-  .roll-btn.pre:hover {
-    border-color: transparent #563087 transparent transparent;
-  }
-  .roll-btn.next:hover {
     border-color: transparent transparent transparent #563087;
   }
+  .roll-btn.next-dis {
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #c6c6c6;
+  }
+
   .roll-btn-bg-circel {
     position: absolute;
     top: 10px;
